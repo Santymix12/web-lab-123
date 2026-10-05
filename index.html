@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Proyecto web con juegos HTML5 originales y contenido interactivo compatible con iframe." />
+  <title>Web Lab 123</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#">WEB LAB 123</a>
+    <input id="search" class="search" type="search" placeholder="Buscar juegos..." aria-label="Buscar juegos" />
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <p class="eyebrow">JUEGA SIN SALIR DE LA PÁGINA</p>
+      <h1>Tu portal de juegos HTML5</h1>
+      <p>Crea juegos propios o agrega juegos externos que permitan ser mostrados dentro de un iframe.</p>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Juegos</h2>
+        <span id="count">2 juegos</span>
+      </div>
+
+      <div id="games" class="grid">
+        <button class="game-card" data-title="Meteor Dodge" data-url="games/meteor-dodge/index.html">
+          <div class="game-art meteor-art">☄</div>
+          <div class="game-info">
+            <strong>Meteor Dodge</strong>
+            <span>Original</span>
+          </div>
+        </button>
+
+        <button class="game-card" data-title="Juego externo" data-url="https://example.com/">
+          <div class="game-art external-art">↗</div>
+          <div class="game-info">
+            <strong>Juego externo</strong>
+            <span>Reemplaza el enlace</span>
+          </div>
+        </button>
+      </div>
+
+      <p id="empty" class="empty" hidden>No encontré juegos con ese nombre.</p>
+    </section>
+  </main>
+
+  <section id="player" class="player" hidden aria-label="Reproductor de juego">
+    <div class="player-bar">
+      <strong id="player-title">Juego</strong>
+      <button id="close-player" type="button">Cerrar</button>
+    </div>
+    <iframe
+      id="game-frame"
+      title="Juego"
+      allow="autoplay; fullscreen; gamepad"
+      referrerpolicy="no-referrer"
+    ></iframe>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>
