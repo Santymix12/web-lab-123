@@ -101,10 +101,16 @@ button, input { font: inherit; }
   place-items: center;
   aspect-ratio: 16 / 10;
   font-size: 56px;
+  font-weight: 900;
+  letter-spacing: -.04em;
   background: var(--panel-2);
 }
 .meteor-art { background: radial-gradient(circle at 30% 30%, #5b42d6, #15192a 70%); }
-.external-art { background: radial-gradient(circle at 70% 30%, #2a83b8, #15192a 70%); }
+.number-art { background: linear-gradient(135deg, #f2b179, #edc53f); color: #20170d; font-size: 42px; }
+.hex-art { background: radial-gradient(circle at 50% 45%, #e65f5c, #2f1838 72%); }
+.snake-art { background: radial-gradient(circle at 35% 30%, #52a95b, #102417 72%); }
+.asteroid-art { background: radial-gradient(circle at 70% 28%, #8795ab, #15192a 72%); }
+.breakout-art { background: linear-gradient(150deg, #395a9a, #49285e 55%, #15192a); }
 
 .game-info { display: grid; gap: 4px; padding: 15px; }
 .game-info span { color: var(--muted); font-size: 13px; }
