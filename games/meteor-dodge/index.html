@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Meteor Dodge</title>
+  <style>
+    *{box-sizing:border-box} body{margin:0;display:grid;place-items:center;min-height:100vh;background:#080b12;color:#fff;font-family:system-ui,sans-serif;overflow:hidden}
+    .wrap{width:min(920px,96vw);text-align:center} h1{margin:0 0 6px;font-size:24px}.sub{margin:0 0 12px;color:#a9b1c3;font-size:14px}
+    canvas{display:block;width:100%;aspect-ratio:16/9;background:linear-gradient(#0b1020,#11172b);border:1px solid #26304b;border-radius:16px;touch-action:none}
+    .hud{display:flex;justify-content:space-between;gap:12px;margin-top:10px;color:#b9c2d7;font-size:14px}.btn{padding:9px 14px;border:1px solid #303a55;border-radius:10px;background:#171d2d;color:#fff;cursor:pointer}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Meteor Dodge</h1>
+    <p class="sub">Muévete con A/D o ←/→. En móvil, arrastra la nave.</p>
+    <canvas id="game" width="960" height="540"></canvas>
+    <div class="hud"><span id="score">Puntos: 0</span><button class="btn" id="restart" type="button">Reiniciar</button></div>
+  </div>
+<script>
+const canvas=document.querySelector('#game');
+const ctx=canvas.getContext('2d');
+const scoreEl=document.querySelector('#score');
+const restart=document.querySelector('#restart');
+let keys={},meteors=[],score=0,gameOver=false,last=0,spawnTimer=0;
+const ship={x:canvas.width/2-24,y:canvas.height-62,w:48,h:28,speed:420};
+
+function reset(){ship.x=canvas.width/2-ship.w/2;meteors=[];score=0;gameOver=false;last=performance.now();spawnTimer=0;scoreEl.textContent='Puntos: 0';requestAnimationFrame(loop)}
+function spawn(){const r=14+Math.random()*20;meteors.push({x:r+Math.random()*(canvas.width-r*2),y:-r,r,speed:170+Math.random()*180+score*.5})}
+function hitCircleRect(c,r){const cx=Math.max(r.x,Math.min(c.x,r.x+r.w));const cy=Math.max(r.y,Math.min(c.y,r.y+r.h));const dx=c.x-cx,dy=c.y-cy;return dx*dx+dy*dy<c.r*c.r}
+function drawShip(){ctx.save();ctx.translate(ship.x+ship.w/2,ship.y+ship.h/2);ctx.fillStyle='#8c7cff';ctx.beginPath();ctx.moveTo(0,-18);ctx.lineTo(22,14);ctx.lineTo(0,7);ctx.lineTo(-22,14);ctx.closePath();ctx.fill();ctx.fillStyle='#d8d3ff';ctx.fillRect(-5,3,10,15);ctx.restore()}
+function drawMeteor(m){ctx.fillStyle='#ff9b69';ctx.beginPath();ctx.arc(m.x,m.y,m.r,0,Math.PI*2);ctx.fill();ctx.fillStyle='rgba(255,255,255,.2)';ctx.beginPath();ctx.arc(m.x-m.r*.25,m.y-m.r*.2,m.r*.28,0,Math.PI*2);ctx.fill()}
+function loop(now){if(gameOver)return;let dt=Math.min((now-last)/1000,.033);last=now;if(keys.ArrowLeft||keys.a)ship.x-=ship.speed*dt;if(keys.ArrowRight||keys.d)ship.x+=ship.speed*dt;ship.x=Math.max(0,Math.min(canvas.width-ship.w,ship.x));spawnTimer-=dt;if(spawnTimer<=0){spawn();spawnTimer=Math.max(.22,.72-score/1200)}
+ctx.clearRect(0,0,canvas.width,canvas.height);for(const m of meteors){m.y+=m.speed*dt;drawMeteor(m);if(hitCircleRect(m,ship)){gameOver=true}}
+meteors=meteors.filter(m=>m.y-m.r<canvas.height+40);drawShip();score+=dt*10;scoreEl.textContent='Puntos: '+Math.floor(score);
+if(gameOver){ctx.fillStyle='rgba(0,0,0,.65)';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle='#fff';ctx.textAlign='center';ctx.font='700 48px system-ui';ctx.fillText('Game Over',canvas.width/2,canvas.height/2-10);ctx.font='24px system-ui';ctx.fillText('Puntos: '+Math.floor(score),canvas.width/2,canvas.height/2+34);return}requestAnimationFrame(loop)}
+addEventListener('keydown',e=>keys[e.key]=true);addEventListener('keyup',e=>keys[e.key]=false);
+function setPointer(e){const rect=canvas.getBoundingClientRect();const scale=canvas.width/rect.width;ship.x=(e.clientX-rect.left)*scale-ship.w/2;ship.x=Math.max(0,Math.min(canvas.width-ship.w,ship.x))}
+canvas.addEventListener('pointerdown',e=>{canvas.setPointerCapture(e.pointerId);setPointer(e)});canvas.addEventListener('pointermove',e=>{if(e.buttons)setPointer(e)});restart.addEventListener('click',reset);reset();
+</script>
+</body>
+</html>
