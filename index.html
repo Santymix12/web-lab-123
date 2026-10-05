@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Proyecto web con juegos HTML5 originales y contenido interactivo compatible con iframe." />
+  <meta name="description" content="Portal web con juegos HTML5 originales y proyectos open source." />
   <title>Web Lab 123</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -17,13 +17,13 @@
     <section class="hero">
       <p class="eyebrow">JUEGA SIN SALIR DE LA PÁGINA</p>
       <h1>Tu portal de juegos HTML5</h1>
-      <p>Crea juegos propios o agrega juegos externos que permitan ser mostrados dentro de un iframe.</p>
+      <p>Juegos propios y proyectos open source que se abren dentro del reproductor del sitio.</p>
     </section>
 
     <section>
       <div class="section-head">
         <h2>Juegos</h2>
-        <span id="count">2 juegos</span>
+        <span id="count">6 juegos</span>
       </div>
 
       <div id="games" class="grid">
@@ -35,11 +35,43 @@
           </div>
         </button>
 
-        <button class="game-card" data-title="Juego externo" data-url="https://example.com/">
-          <div class="game-art external-art">↗</div>
+        <button class="game-card" data-title="2048" data-url="https://gabrielecirulli.github.io/2048/">
+          <div class="game-art number-art">2048</div>
           <div class="game-info">
-            <strong>Juego externo</strong>
-            <span>Reemplaza el enlace</span>
+            <strong>2048</strong>
+            <span>Open source · MIT</span>
+          </div>
+        </button>
+
+        <button class="game-card" data-title="Hextris" data-url="https://hextris.github.io/hextris/">
+          <div class="game-art hex-art">⬡</div>
+          <div class="game-info">
+            <strong>Hextris</strong>
+            <span>Open source · GPLv3</span>
+          </div>
+        </button>
+
+        <button class="game-card" data-title="Snake" data-url="https://vis-a11y.github.io/snake-game/">
+          <div class="game-art snake-art">S</div>
+          <div class="game-info">
+            <strong>Snake</strong>
+            <span>Open source · MIT</span>
+          </div>
+        </button>
+
+        <button class="game-card" data-title="Asteroids" data-url="https://7affer.github.io/asteroids-html5/">
+          <div class="game-art asteroid-art">✦</div>
+          <div class="game-info">
+            <strong>Asteroids</strong>
+            <span>Open source · MIT</span>
+          </div>
+        </button>
+
+        <button class="game-card" data-title="Breakout" data-url="https://akshatjain02.github.io/">
+          <div class="game-art breakout-art">▦</div>
+          <div class="game-info">
+            <strong>Breakout</strong>
+            <span>Open source · MIT</span>
           </div>
         </button>
       </div>
